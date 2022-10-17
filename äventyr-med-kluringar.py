@@ -81,5 +81,16 @@ def binaryCodeAnswer(random):
     return answer
      
     
-binaryCode('do something')
+#binaryCode('do something')
+    
+
+def checkAnswer(playerInput):
+    step1 = playerInput.replace(" ", "")
+    step2 = step1.lower()
+    return(step2)
+    
+    
+playerInput = "Jag gillar pannkakor"
+print(checkAnswer(playerInput))
+
     
