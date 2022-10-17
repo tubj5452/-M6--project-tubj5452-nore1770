@@ -13,7 +13,7 @@ yes_no = ["yes", "no"]
 equations = {"x^3 = 8, what is x":"2", "What is the derivative of 1/x":"-1/(x^2)", "Simplify 76/8":"19/2", "Expand (x + 3)^2":"x^2+6x+9"}
 options = ["restart", "quit"]
 riddles = {"What has to be broken before you can use it?" : "egg" , "I am tall when I am young and short when I am old. What am I?" : "candle"}
-sentences = ["I like bananas", "Programming is hard but fun!", "In my free-time i only study :("]
+sentences = ["a","b","c"]#["I like bananas", "Programming is hard but fun!", "In my free-time i only study :("]
 
 
 sum_points = 0
@@ -35,7 +35,7 @@ def math(prompt, equations):
             return points
         elif points == 1:
             points == 0
-            return menu(f"Incorrect!\nGame over!\n\nWhat do you want to do?\n", options, sum_points) 
+            return menu(f"Incorrect!\nGame over!\n", options, sum_points) 
         else:
             points -= 1
             print(f"Incorrect! You have {points} guess(es) left")
@@ -46,18 +46,21 @@ def askRiddle(situation):
     print(riddle)
     points = 3
     while points > 0:
-        playerAnswer = checkanswer(input("Answer: "))
+        playerAnswer = input("Answer: ")
+        
+       # playerAnswer = checkanswer(input("Answer: "))
+    while points <= 3:
+        playerAnswer = input("\nAnswer: ")
         if playerAnswer == riddles[riddle]:
-            print("Correct!")
+            print(f"Correct! You have earned {points} point(s)")
             riddles.pop(riddle)
             return points
+        elif points == 1:
+            points == 0
+            return menu(f"Incorrect!\nGame over!\n", options, sum_points) 
         else:
-            points = points - 1
-            if points > 0:
-                print(f"\nThat is incorrect. You have {points} more guess(es).")
-            else:
-                print("\nThat is incorrect. You have no more tries.\nGame over.")
-                return 0
+            points -= 1
+            print(f"Incorrect! You have {points} guess(es) left")   
             
 def binaryCode(prompt):
     print(f"You have to decode this binary code to {prompt}. \nGood luck!\n")
@@ -72,19 +75,17 @@ def binaryCode(prompt):
             enter = False
     print(random)
     answer = binaryCodeAnswer(random)
-    while points > 0:
+    while points <= 3:
         playerAnswer = input("\nAnswer: ")
         if playerAnswer == str(answer):
-            print ("\nCorrect!")
+            print(f"Correct! You have earned {points} point(s)")
             return points
+        elif points == 1:
+            points == 0
+            return menu(f"Incorrect!\nGame over!\n", options, sum_points) 
         else:
-            points = points - 1
-            if points > 0:
-                print(f"\nThat is incorrect. You have {points} more guess(es).")
-            else:
-                print("\nThat is incorrect. You have no more tries.\nGame over.")
-                return 0
-        
+            points -= 1
+            print(f"Incorrect! You have {points} guess(es) left")        
         
 def binaryCodeAnswer(random):
     index = 4
@@ -96,7 +97,7 @@ def binaryCodeAnswer(random):
     return answer
             
 def menu(prompt, options, sum_points):
-    print_list(f"{prompt}\nTotal points earned: {sum_points}\n", options)
+    print_list(f"{prompt}\nTotal points earned: {sum_points}\n\nWhat do you want to do?\n", options)
     
     while True: 
         action = input(f"Action: ")
@@ -104,7 +105,7 @@ def menu(prompt, options, sum_points):
             break
         elif action == "restart":
             sum_points = 0
-            return start("Good luck, are you ready?", yes_no, sum_points)
+            return start("Good luck, are you ready?", yes_no)
 
             
 def start(prompt, strings):
@@ -134,34 +135,34 @@ def print_list(prompt, strings):
     for n in strings:
         print (f"* {n}")
         
-def checkAnswer(inputPlayer): #sätt in i 
+#def checkAnswer(inputPlayer): #sätt in i alla funktioners input som behöver kontrolleras
     
 
-#def speed_game(prompt, sentences, sum_points):
- #   start(f"{prompt}", yes_no, sum_points)
+def speedGame(prompt, sentences):
+    start(f"{prompt}", yes_no)
    
-  #  sentence = random.choice(list(sentences))
+    sentence = random.choice(list(sentences))
 
- #   s = 10
+    s = 10
 
-  #  while s > 0:
+    while s > 0:
  
         # Timer represents time left on countdown
-   #     timer = datetime.timedelta(seconds = s)
+        timer = datetime.timedelta(seconds = s)
     #    
         # Prints the time left on the timer
-   #     print(timer, end="\r")
+        print(timer, end="\r")
  
         # Delays the program one second
-   #     time.sleep(1)
+        time.sleep(1)
  
         # Reduces total time by one second
-   #     s -= 1
+        s -= 1
         
-   #     players_sentence = input(f"Your sentence is: {sentence}\n")
+        players_sentence = input(f"Your sentence is: {sentence}\n")
 
  
-  #  print("Bzzzt! The countdown is at zero seconds!")
+    print("Bzzzt! The countdown is at zero seconds!")
  
 
         
@@ -172,6 +173,10 @@ if start(f"Welcome {player}! Are you ready for your adventure?", yes_no) == "pla
 
 if start(f"Ready for the next game?", yes_no) == "player_is_ready":
     sum_points = sum_points + math("situation", equations)
+    print(f"\nTotal points earned so far: {sum_points}")
+
+if start(f"Ready for the next game?", yes_no) == "player_is_ready":
+    sum_points = sum_points + askRiddle("do something")
     print(f"\nTotal points earned so far: {sum_points}")
 
 if start(f"Ready for the next game?", yes_no) == "player_is_ready":
