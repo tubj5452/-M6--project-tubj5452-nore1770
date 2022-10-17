@@ -3,6 +3,12 @@ import time
 import datetime
 from random import randint
 
+#Skapar en story
+#Felhantering
+    #göra om stora bokstäver till små
+    #ta bort mellanslag
+    #förtydliga frågorna 
+
 yes_no = ["yes", "no"]
 equations = {"x^3 = 8, what is x":"2", "What is the derivative of 1/x":"-1/(x^2)", "Simplify 76/8":"19/2", "Expand (x + 3)^2":"x^2+6x+9"}
 options = ["restart", "quit"]
@@ -40,7 +46,7 @@ def askRiddle(situation):
     print(riddle)
     points = 3
     while points > 0:
-        playerAnswer = input("Answer: ")
+        playerAnswer = checkanswer(input("Answer: "))
         if playerAnswer == riddles[riddle]:
             print("Correct!")
             riddles.pop(riddle)
@@ -127,46 +133,45 @@ def print_list(prompt, strings):
     print(f"\n{prompt}")
     for n in strings:
         print (f"* {n}")
+        
+def checkAnswer(inputPlayer): #sätt in i 
+    
 
-def speed_game(prompt, sentences, sum_points):
-    start(f"{prompt}", yes_no, sum_points)
+#def speed_game(prompt, sentences, sum_points):
+ #   start(f"{prompt}", yes_no, sum_points)
    
-    sentence = random.choice(list(sentences))
+  #  sentence = random.choice(list(sentences))
 
-    s = 10
+ #   s = 10
 
-    while s > 0:
+  #  while s > 0:
  
         # Timer represents time left on countdown
-        timer = datetime.timedelta(seconds = s)
-        
+   #     timer = datetime.timedelta(seconds = s)
+    #    
         # Prints the time left on the timer
-        print(timer, end="\r")
+   #     print(timer, end="\r")
  
         # Delays the program one second
-        time.sleep(1)
+   #     time.sleep(1)
  
         # Reduces total time by one second
-        s -= 1
+   #     s -= 1
         
-        players_sentence = input(f"Your sentence is: {sentence}\n")
+   #     players_sentence = input(f"Your sentence is: {sentence}\n")
 
  
-    print("Bzzzt! The countdown is at zero seconds!")
+  #  print("Bzzzt! The countdown is at zero seconds!")
  
 
         
     
-#if start(f"Welcome {player}! Are you ready for your adventure?", yes_no) == "player_is_ready": 
+if start(f"Welcome {player}! Are you ready for your adventure?", yes_no) == "player_is_ready": 
     sum_points = sum_points + math("situation", equations)
-
-    #sum_points = math("situation", equations, sum_points)
     print(f"\nTotal points earned so far: {sum_points}")
 
-#if start(f"Ready for the next game?", yes_no) == "player_is_ready":
+if start(f"Ready for the next game?", yes_no) == "player_is_ready":
     sum_points = sum_points + math("situation", equations)
-
-    #sum_points = math("situation", equations, sum_points)
     print(f"\nTotal points earned so far: {sum_points}")
 
 if start(f"Ready for the next game?", yes_no) == "player_is_ready":
