@@ -45,8 +45,7 @@ def askRiddle(situation):
     riddle = random.choice(list(riddles))
     print(riddle)
     points = 3
-    while points > 0:
-        playerAnswer = input("Answer: ")
+   
         
        # playerAnswer = checkanswer(input("Answer: "))
     while points <= 3:
@@ -167,11 +166,11 @@ def speedGame(prompt, sentences):
 
         
     
-if start(f"Welcome {player}! Are you ready for your adventure?", yes_no) == "player_is_ready": 
+#if start(f"Welcome {player}! Are you ready for your adventure?", yes_no) == "player_is_ready": 
     sum_points = sum_points + math("situation", equations)
     print(f"\nTotal points earned so far: {sum_points}")
 
-if start(f"Ready for the next game?", yes_no) == "player_is_ready":
+#if start(f"Ready for the next game?", yes_no) == "player_is_ready":
     sum_points = sum_points + math("situation", equations)
     print(f"\nTotal points earned so far: {sum_points}")
 
