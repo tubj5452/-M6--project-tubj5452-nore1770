@@ -140,7 +140,7 @@ def menu(prompt, options, sumPoints):
         if action == "quit":
             break
         elif action == "restart":
-            return action  
+            return action
             
 def start(prompt, strings):
     printList(f"{prompt}", yesNo)
@@ -187,10 +187,10 @@ def main(sumPoints):
         while True:
             result = math("get the directions ")
             if result == "gameOver":
-                print("You are out of guesses - the fairy is kind enough to give you a second chance")
+                print("You are out of guesses and you've annoyed the fairy slightly. She is kind enough to let you try again, but only if you can answer her riddle first.")
                 result = askRiddle("get another chance")
                 if result == "gameOver":
-                    print("This is your last chance - the fairy is getting angry at you stupidity")
+                    print("Oh no! This is your last chance. The fairy is getting angry at you stupidity. She could attack if you fail the next task.")
                     result = speedGame("survive")
                     if result == "gameOverTime" or result == "gameOverIncorrect":
                         menu(f"To slow!\nThe fairy is furious...\nGame over!\n", options, sumPoints)
@@ -206,87 +206,126 @@ def main(sumPoints):
                 break
 
     print("continue story(to the library)")
-    result = binaryCode("open the door and enter the library")
-    if result == "gameOver":
-        menu(f"Incorrect!\nGame over!\n", options, sumPoints)
-        return False
-    else:
-        sumPoints = sumPoints + result
-        print("Congratulations! You managed to open the door")
-        print(f"\nTotal points earned so far: {sumPoints}")
+    while True:
+        result = binaryCode("open the door and enter the library")
+        if result == "gameOver":
+            sumPoints = sumPoints - 1
+            print("\nUnfortunately you failed to open the door and therefore you've lost 1 point.\n You get to try again.\n")
+        elif result == "gameOver" and sumPoints == 0:
+            menu(f"You are out of points...\nGame over!\n", options, sumPoints)
+            break    
+        else:
+            sumPoints = sumPoints + result
+            print(f"\nGood job, {player}! You opened the door to the library.")
+            print(f"\nTotal points earned so far: {sumPoints}")
+            break
 
     print("continue story(in the library)")
     result = speedGame("find the correct book before the angry librarian comes back")   
     if result == "gameOverTime":
-        menu(f"To slow!\nThe angry librarian found you...\nGame over!\n", options, sumPoints)
+        menu(f"You were too slow!\nThe angry librarian found you...\nGame over!\n", options, sumPoints)
         return False
     elif result == "gameOverIncorrect":
-        menu(f"Incorrect!\nGame over!\n", options, sumPoints)            
+        menu(f"You didn't find the book in time and the angry librarian found you...\nGame over!\n", options, sumPoints)            
     else:
         sumPoints = sumPoints + result
-        print("Congratulations! You found the book in time!")
+        print(f"\nYou did it, {player}! You found the book in time!")
         print(f"\nTotal points earned so far: {sumPoints}")
     
     print("continue story(down in basement)")    
-    result = askRiddle("get an ingredient from the goblin")       
-    if result == "gameOver":
-        menu(f"Incorrect!\nGame over!\n", options, sumPoints)
-        return False
+    
+    while True:
+        result = askRiddle("get an ingredient from the goblin")
+        if result == "gameOver":
+            print("*Gasp!* The goblin is upset that you don't know the riddles.")
+            result = speedGame("survive")
+            if result == "gameOverTime" or result == "gameOverIncorrect":
+                menu(f"Oh no!\nThe goblin went to attack...\nGame over!\n", options, sumPoints)
+                return False
+            else:
+                True      
     else:
         sumPoints = sumPoints + result
-        print("Congratulations! You found the book in time!")
+        print("Yaay! The goblin gave you the ingredient!")
         print(f"\nTotal points earned so far: {sumPoints}")
-    
+
     print("continue story(to chest - you see a chest in the corner and the goblin alows you to open it if you get the right code. )")    
-    result = binaryCode("open the chest")
-    if result == "gameOver":
-        menu(f"Incorrect!\nGame over!\n", options, sumPoints)
-        return False
-    else:
-        sumPoints = sumPoints + result
-        print("Congratulations! You managed to open the chest")
-        print(f"\nTotal points earned so far: {sumPoints}")
-    
+    while True:
+        result = binaryCode("open the chest")
+        if result == "gameOver":
+            sumPoints = sumPoints - 1
+            print("\nUnfortunately you failed to open the chest and therefore you've lost 1 point.\n You get to try again.\n")   
+        elif result == "gameOver" and sumPoints == 0:
+            menu(f"You are out of points...\nGame over!\n", options, sumPoints)
+            break
+        else:
+            sumPoints = sumPoints + result
+            print("Congratulations! You managed to open the chest")
+            print(f"\nTotal points earned so far: {sumPoints}")
+            break   
+   
+
     print("continue story(the fairy show up to give you more directions)")
-    result = math("get the directions ")
-    if result == "gameOver":
-        menu(f"Incorrect!\nGame over!\n", options, sumPoints)
-        return False
-    else:
-        sumPoints = result
-        print("Congratulations! You receved directions from the fairy")
-        print(f"\nTotal points earned so far: {sumPoints}")
-        
-    print("continue story(to the witch)")
+    while True:
+        result = math("get the directions to the witch")
+        if result == "gameOver":
+            print("You are out of guesses and you've annoyed the fairy slightly. She is kind enough to let you try again, but only if you can answer her riddle first.")
+            result = askRiddle("get another chance")
+            if result == "gameOver":
+                print("Oh no! This is your last chance. The fairy is getting angry at you stupidity. She could attack if you fail the next task.")
+                result = speedGame("survive")
+                if result == "gameOverTime" or result == "gameOverIncorrect":
+                    menu(f"To slow!\nThe fairy is furious...\nGame over!\n", options, sumPoints)
+                    return False
+                else:
+                    True
+            else:
+                True
+        else:
+            sumPoints = result
+            print("Congratulations! You receved directions from the fairy and you can be on your way to the witch")
+            print(f"\nTotal points earned so far: {sumPoints}")
+            break    
+    
+    
+    print("continue story(to the witch who will help to mix the cure of the poison )")
+    while True:
     result = askRiddle("get help from the witch")       
     if result == "gameOver":
-        menu(f"Incorrect!\nGame over!\n", options, sumPoints)
-        return False
+        print("*Gasp!* The cure is not forming correctly, it needs to be stirred.")
+        result = speedGame("stir or the cure will be a faliure")
+        if result == "gameOverTime" or result == "gameOverIncorrect":
+            menu(f"Oh no!\nThe making of the cure failed and the king will die...\nGame over!\n", options, sumPoints)
+            return False
+        else:
+            True 
     else:
         sumPoints = sumPoints + result
-        print("Congratulations! The witch found you worthy to help")
+        print("Congratulations! The cure was cultivated perfectly")
         print(f"\nTotal points earned so far: {sumPoints}")
-    
-    
-    
-  #  if start(f"Ready for the next game?", yesNo) == "playerIsReady":
-         
-        
 
-  #  if start(f"Ready for the next game?", yesNo) == "playerIsReady":
-   #     result = binaryCode("do something")
+
+    print("continue story(to prepare for the run back to the king)")
+    result = speedgame("get the cure to tyhe king in time")       
+    if result == "gameOverTime" or result == "gameOverIncorrect":
+            menu(f"The king died beacuse you were to slow.\nGame over!\n", options, sumPoints)
+            return False
+    else:
+        sumPoints = sumPoints + result
+        print("Congratulations! Yur arrived to the king in time and his life as well as the kingdom was saved!!!")
+        print(f"\nTotal points earned: {sumPoints}")
+
+
+    
+     if start(f"Game cleared!\nWhat do you want to do?", yesNo) == "playerIsReady":
+         return False
         
-    
-    
- #   if start(f"Ready for the next game?", yesNo) == "playerIsReady":
-   #     result = speedGame("do something")   
-         
+        
         
 while True: 
     if main(sumPoints) == False:
         sumPoints = 0
         main(sumPoints)
-    
 
 
     
