@@ -8,7 +8,7 @@ yesNo = ["yes", "no"]
 equations = {"x^3 = 8, what is x":"2", "What is the derivative of 1/x":"-1/(x^2)", "Simplify 76/8":"19/2", "Expand (x + 3)^2":"x^2+6x+9", "What is π/4 in degrees?":"45", "What is i^2?":"-1", "Calculate |−4|?":"4", "Solve for x: 3x = 1/2":"1/6"}
 options = ["restart", "quit"]
 riddles = {"What has to be broken before you can use it?" : "egg" , "I am tall when I am young and short when I am old. What am I?" : "candle", "The poor have me; the rich need me. Eat me and you will die. What am I?" : "nothing" , " They come at night without being called and are lost in the day without being stolen. What are they?" : "stars"}
-sentences = ["I like bananas", "Programming is hard but fun!", "In my free-time I only study :(", "I hate to ride my sister's bike", "Lasagna is overrated", "Why does dragons not exist?"]
+sentences = ["I like bananas", "Programming is hard but fun!", "In my free-time I only study :(", "I hate to ride my sister's bike", "Lasagna is overrated", "Why do dragons not exist?"]
 
 
 sumPoints = 0
