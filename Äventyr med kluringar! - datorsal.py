@@ -298,9 +298,9 @@ def main(sumPoints):
         if result == "gameOver":
             print("*Gasp!* The cure is not forming correctly, it needs to be stirred.")
             result = speedGame("stir or the cure will be a faliure")
-        if result == "gameOverTime" or result == "gameOverIncorrect":
-            menu(f"Oh no!\nThe making of the cure failed and the king will die...\nGame over!\n", options, sumPoints)
-            return False
+            if result == "gameOverTime" or result == "gameOverIncorrect":
+                menu(f"Oh no!\nThe making of the cure failed and the king will die...\nGame over!\n", options, sumPoints)
+                return False
         else:
             sumPoints = sumPoints + result
             print(f"Total points earned so far: {sumPoints}")
